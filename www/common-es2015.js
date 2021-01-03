@@ -1,6 +1,6 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([["common"],{
 
-/***/ "./node_modules/@ionic/core/dist/esm/button-active-a6787d69.js":
+/***/ "0/6H":
 /*!*********************************************************************!*\
   !*** ./node_modules/@ionic/core/dist/esm/button-active-a6787d69.js ***!
   \*********************************************************************/
@@ -10,9 +10,9 @@
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return createButtonActiveGesture; });
-/* harmony import */ var _index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./index-e806d1f6.js */ "./node_modules/@ionic/core/dist/esm/index-e806d1f6.js");
-/* harmony import */ var _index_f49d994d_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./index-f49d994d.js */ "./node_modules/@ionic/core/dist/esm/index-f49d994d.js");
-/* harmony import */ var _haptic_27b3f981_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./haptic-27b3f981.js */ "./node_modules/@ionic/core/dist/esm/haptic-27b3f981.js");
+/* harmony import */ var _index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./index-e806d1f6.js */ "A36C");
+/* harmony import */ var _index_f49d994d_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./index-f49d994d.js */ "iWo5");
+/* harmony import */ var _haptic_27b3f981_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./haptic-27b3f981.js */ "qULd");
 
 
 
@@ -81,7 +81,63 @@ const createButtonActiveGesture = (el, isButton) => {
 
 /***/ }),
 
-/***/ "./node_modules/@ionic/core/dist/esm/framework-delegate-4584ab5a.js":
+/***/ "74mu":
+/*!*************************************************************!*\
+  !*** ./node_modules/@ionic/core/dist/esm/theme-ff3fc52f.js ***!
+  \*************************************************************/
+/*! exports provided: c, g, h, o */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return createColorClasses; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return getClassMap; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return hostContext; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "o", function() { return openURL; });
+const hostContext = (selector, el) => {
+  return el.closest(selector) !== null;
+};
+/**
+ * Create the mode and color classes for the component based on the classes passed in
+ */
+const createColorClasses = (color, cssClassMap) => {
+  return (typeof color === 'string' && color.length > 0) ? Object.assign({ 'ion-color': true, [`ion-color-${color}`]: true }, cssClassMap) : cssClassMap;
+};
+const getClassList = (classes) => {
+  if (classes !== undefined) {
+    const array = Array.isArray(classes) ? classes : classes.split(' ');
+    return array
+      .filter(c => c != null)
+      .map(c => c.trim())
+      .filter(c => c !== '');
+  }
+  return [];
+};
+const getClassMap = (classes) => {
+  const map = {};
+  getClassList(classes).forEach(c => map[c] = true);
+  return map;
+};
+const SCHEME = /^[a-z][a-z0-9+\-.]*:/;
+const openURL = async (url, ev, direction, animation) => {
+  if (url != null && url[0] !== '#' && !SCHEME.test(url)) {
+    const router = document.querySelector('ion-router');
+    if (router) {
+      if (ev != null) {
+        ev.preventDefault();
+      }
+      return router.push(url, direction, animation);
+    }
+  }
+  return false;
+};
+
+
+
+
+/***/ }),
+
+/***/ "ZaV5":
 /*!**************************************************************************!*\
   !*** ./node_modules/@ionic/core/dist/esm/framework-delegate-4584ab5a.js ***!
   \**************************************************************************/
@@ -130,131 +186,7 @@ const detachComponent = (delegate, element) => {
 
 /***/ }),
 
-/***/ "./node_modules/@ionic/core/dist/esm/haptic-27b3f981.js":
-/*!**************************************************************!*\
-  !*** ./node_modules/@ionic/core/dist/esm/haptic-27b3f981.js ***!
-  \**************************************************************/
-/*! exports provided: a, b, c, d, h */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return hapticSelectionStart; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return hapticSelectionChanged; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return hapticSelection; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return hapticImpact; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return hapticSelectionEnd; });
-const HapticEngine = {
-  getEngine() {
-    const win = window;
-    return (win.TapticEngine) || (win.Capacitor && win.Capacitor.isPluginAvailable('Haptics') && win.Capacitor.Plugins.Haptics);
-  },
-  available() {
-    return !!this.getEngine();
-  },
-  isCordova() {
-    return !!window.TapticEngine;
-  },
-  isCapacitor() {
-    const win = window;
-    return !!win.Capacitor;
-  },
-  impact(options) {
-    const engine = this.getEngine();
-    if (!engine) {
-      return;
-    }
-    const style = this.isCapacitor() ? options.style.toUpperCase() : options.style;
-    engine.impact({ style });
-  },
-  notification(options) {
-    const engine = this.getEngine();
-    if (!engine) {
-      return;
-    }
-    const style = this.isCapacitor() ? options.style.toUpperCase() : options.style;
-    engine.notification({ style });
-  },
-  selection() {
-    this.impact({ style: 'light' });
-  },
-  selectionStart() {
-    const engine = this.getEngine();
-    if (!engine) {
-      return;
-    }
-    if (this.isCapacitor()) {
-      engine.selectionStart();
-    }
-    else {
-      engine.gestureSelectionStart();
-    }
-  },
-  selectionChanged() {
-    const engine = this.getEngine();
-    if (!engine) {
-      return;
-    }
-    if (this.isCapacitor()) {
-      engine.selectionChanged();
-    }
-    else {
-      engine.gestureSelectionChanged();
-    }
-  },
-  selectionEnd() {
-    const engine = this.getEngine();
-    if (!engine) {
-      return;
-    }
-    if (this.isCapacitor()) {
-      engine.selectionEnd();
-    }
-    else {
-      engine.gestureSelectionEnd();
-    }
-  }
-};
-/**
- * Trigger a selection changed haptic event. Good for one-time events
- * (not for gestures)
- */
-const hapticSelection = () => {
-  HapticEngine.selection();
-};
-/**
- * Tell the haptic engine that a gesture for a selection change is starting.
- */
-const hapticSelectionStart = () => {
-  HapticEngine.selectionStart();
-};
-/**
- * Tell the haptic engine that a selection changed during a gesture.
- */
-const hapticSelectionChanged = () => {
-  HapticEngine.selectionChanged();
-};
-/**
- * Tell the haptic engine we are done with a gesture. This needs to be
- * called lest resources are not properly recycled.
- */
-const hapticSelectionEnd = () => {
-  HapticEngine.selectionEnd();
-};
-/**
- * Use this to indicate success/failure/warning to the user.
- * options should be of the type `{ style: 'light' }` (or `medium`/`heavy`)
- */
-const hapticImpact = (options) => {
-  HapticEngine.impact(options);
-};
-
-
-
-
-/***/ }),
-
-/***/ "./node_modules/@ionic/core/dist/esm/spinner-configs-cd7845af.js":
+/***/ "h3R7":
 /*!***********************************************************************!*\
   !*** ./node_modules/@ionic/core/dist/esm/spinner-configs-cd7845af.js ***!
   \***********************************************************************/
@@ -378,55 +310,123 @@ const SPINNERS = spinners;
 
 /***/ }),
 
-/***/ "./node_modules/@ionic/core/dist/esm/theme-ff3fc52f.js":
-/*!*************************************************************!*\
-  !*** ./node_modules/@ionic/core/dist/esm/theme-ff3fc52f.js ***!
-  \*************************************************************/
-/*! exports provided: c, g, h, o */
+/***/ "qULd":
+/*!**************************************************************!*\
+  !*** ./node_modules/@ionic/core/dist/esm/haptic-27b3f981.js ***!
+  \**************************************************************/
+/*! exports provided: a, b, c, d, h */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return createColorClasses; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return getClassMap; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return hostContext; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "o", function() { return openURL; });
-const hostContext = (selector, el) => {
-  return el.closest(selector) !== null;
-};
-/**
- * Create the mode and color classes for the component based on the classes passed in
- */
-const createColorClasses = (color, cssClassMap) => {
-  return (typeof color === 'string' && color.length > 0) ? Object.assign({ 'ion-color': true, [`ion-color-${color}`]: true }, cssClassMap) : cssClassMap;
-};
-const getClassList = (classes) => {
-  if (classes !== undefined) {
-    const array = Array.isArray(classes) ? classes : classes.split(' ');
-    return array
-      .filter(c => c != null)
-      .map(c => c.trim())
-      .filter(c => c !== '');
-  }
-  return [];
-};
-const getClassMap = (classes) => {
-  const map = {};
-  getClassList(classes).forEach(c => map[c] = true);
-  return map;
-};
-const SCHEME = /^[a-z][a-z0-9+\-.]*:/;
-const openURL = async (url, ev, direction, animation) => {
-  if (url != null && url[0] !== '#' && !SCHEME.test(url)) {
-    const router = document.querySelector('ion-router');
-    if (router) {
-      if (ev != null) {
-        ev.preventDefault();
-      }
-      return router.push(url, direction, animation);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return hapticSelectionStart; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return hapticSelectionChanged; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return hapticSelection; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return hapticImpact; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return hapticSelectionEnd; });
+const HapticEngine = {
+  getEngine() {
+    const win = window;
+    return (win.TapticEngine) || (win.Capacitor && win.Capacitor.isPluginAvailable('Haptics') && win.Capacitor.Plugins.Haptics);
+  },
+  available() {
+    return !!this.getEngine();
+  },
+  isCordova() {
+    return !!window.TapticEngine;
+  },
+  isCapacitor() {
+    const win = window;
+    return !!win.Capacitor;
+  },
+  impact(options) {
+    const engine = this.getEngine();
+    if (!engine) {
+      return;
+    }
+    const style = this.isCapacitor() ? options.style.toUpperCase() : options.style;
+    engine.impact({ style });
+  },
+  notification(options) {
+    const engine = this.getEngine();
+    if (!engine) {
+      return;
+    }
+    const style = this.isCapacitor() ? options.style.toUpperCase() : options.style;
+    engine.notification({ style });
+  },
+  selection() {
+    this.impact({ style: 'light' });
+  },
+  selectionStart() {
+    const engine = this.getEngine();
+    if (!engine) {
+      return;
+    }
+    if (this.isCapacitor()) {
+      engine.selectionStart();
+    }
+    else {
+      engine.gestureSelectionStart();
+    }
+  },
+  selectionChanged() {
+    const engine = this.getEngine();
+    if (!engine) {
+      return;
+    }
+    if (this.isCapacitor()) {
+      engine.selectionChanged();
+    }
+    else {
+      engine.gestureSelectionChanged();
+    }
+  },
+  selectionEnd() {
+    const engine = this.getEngine();
+    if (!engine) {
+      return;
+    }
+    if (this.isCapacitor()) {
+      engine.selectionEnd();
+    }
+    else {
+      engine.gestureSelectionEnd();
     }
   }
-  return false;
+};
+/**
+ * Trigger a selection changed haptic event. Good for one-time events
+ * (not for gestures)
+ */
+const hapticSelection = () => {
+  HapticEngine.selection();
+};
+/**
+ * Tell the haptic engine that a gesture for a selection change is starting.
+ */
+const hapticSelectionStart = () => {
+  HapticEngine.selectionStart();
+};
+/**
+ * Tell the haptic engine that a selection changed during a gesture.
+ */
+const hapticSelectionChanged = () => {
+  HapticEngine.selectionChanged();
+};
+/**
+ * Tell the haptic engine we are done with a gesture. This needs to be
+ * called lest resources are not properly recycled.
+ */
+const hapticSelectionEnd = () => {
+  HapticEngine.selectionEnd();
+};
+/**
+ * Use this to indicate success/failure/warning to the user.
+ * options should be of the type `{ style: 'light' }` (or `medium`/`heavy`)
+ */
+const hapticImpact = (options) => {
+  HapticEngine.impact(options);
 };
 
 
